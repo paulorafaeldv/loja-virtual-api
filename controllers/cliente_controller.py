@@ -14,10 +14,10 @@ async def create_new_cliente(
  return await cliente_service.create_cliente(db, cliente)
 @router.get("/{cliente_id}", response_model=cliente_schema.ClienteSchema)
 async def read_cliente(cliente_id: int, db: AsyncSession = Depends(get_db)):
- db_cliente = await cliente_service.get_cliente(db, cliente_id)
- if db_cliente is None:
- raise HTTPException(
- status_code=status.HTTP_404_NOT_FOUND,
- detail="Cliente não encontrado"
- )
- return db_cliente
+    db_cliente = await cliente_service.get_cliente(db, cliente_id)
+    if db_cliente is None:
+       raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="Cliente não encontrado"
+    )
+    return db_cliente

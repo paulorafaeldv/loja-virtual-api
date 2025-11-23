@@ -11,12 +11,12 @@ AsyncSessionLocal = sessionmaker(
 )
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     db = AsyncSessionLocal()
-        try:
+    try:
         yield db
-        finally:
+    finally:
         await db.close()
 async def init_db():
- async with engine.begin() as conn:
+    async with engine.begin() as conn:
  # Importe todos os modelos para que a Base possa criar as tabelas
- from models.db import produto_model, cliente_model, pedido_model
- await conn.run_sync(Base.metadata.create_all)
+        from models.db import produto_model, cliente_model, pedido_model
+        await conn.run_sync(Base.metadata.create_all)
