@@ -9,13 +9,13 @@ router = APIRouter(prefix="/clientes", tags=["Clientes"])
 
 @router.post("/", response_model=cliente_schema.ClienteSchema, status_code=status.HTTP_201_CREATED)
 async def criar_novo_cliente( 
- cliente: cliente_schema.ClienteCreate, db: AsyncSession = Depends(get_db)
+    cliente: cliente_schema.ClienteCreate, db: AsyncSession = Depends(get_db)
 ):
  return await cliente_service.create_cliente(db, cliente)
 
 @router.get("/{cliente_id}", response_model=cliente_schema.ClienteSchema)
 async def ler_cliente(
- cliente_id: int, db: AsyncSession = Depends(get_db)
+    cliente_id: int, db: AsyncSession = Depends(get_db)
 ):
     db_cliente = await cliente_service.get_cliente(db, cliente_id)
     if db_cliente is None:
