@@ -17,6 +17,6 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
         await db.close()
 async def init_db():
     async with engine.begin() as conn:
- # Importe todos os modelos para que a Base possa criar as tabelas
+        # Importe todos os modelos para que a Base possa criar as tabelas
         from models.db import produto_model, cliente_model, pedido_model
         await conn.run_sync(Base.metadata.create_all)
