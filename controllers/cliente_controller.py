@@ -7,6 +7,8 @@ from models.schema import cliente_schema
 from models.db.cliente_model import ClienteDB
 from sqlalchemy import select
 
+router = APIRouter(prefix="/clientes", tags=["Clientes"])
+
 @router.post("/", response_model=cliente_schema.ClienteSchema, status_code=status.HTTP_201_CREATED)
 async def create_new_cliente(
  cliente: cliente_schema.ClienteCreate, db: AsyncSession = Depends(get_db)
