@@ -11,4 +11,4 @@ class ClienteDB(Base):
  email = Column(String, unique=True, index=True, nullable=False)
  data_cadastro = Column(DateTime, default=datetime.utcnow)
 
- pedidos = relationship("PedidoDB", back_populates="cliente")
+ pedidos = relationship("PedidoDB", back_populates="cliente") # relacionamento com pedidos (1:N)

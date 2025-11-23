@@ -4,8 +4,6 @@ from typing import List
 from config.database import get_db
 from service import cliente_service
 from models.schema import cliente_schema
-from models.db.cliente_model import ClienteDB
-from sqlalchemy import select
 
 router = APIRouter(prefix="/clientes", tags=["Clientes"])
 
