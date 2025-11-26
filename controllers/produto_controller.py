@@ -27,7 +27,7 @@ async def read_produto(produto_id: int, db: AsyncSession = Depends(get_db)):
     produto_db = await produto_service.get_produto_with_frete(db, produto_id)
 
     if not produto_db:
-        raise HTTPException(status_code=404, detail="Produto não encontrado")
+        raise HTTPException(status_code=404, detail="Produto não localizado. ")
 
     return produto_db
 
