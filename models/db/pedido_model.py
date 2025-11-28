@@ -13,7 +13,7 @@ class PedidoDB(Base):
     status = Column(String, default="Pendente")
     data_criacao = Column(DateTime, default=datetime.utcnow)
     cliente = relationship("ClienteDB", back_populates="pedidos")
-    itens = relationship("ItemPedidoDB", back_populates="pedido", cascade="all, delete-orp")
+    itens = relationship("ItemPedidoDB", back_populates="pedido", cascade="all, delete-orphan")
                          
 class ItemPedidoDB(Base):
     

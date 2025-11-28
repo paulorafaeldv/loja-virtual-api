@@ -9,7 +9,7 @@ app = FastAPI(
 @app.on_event("startup")
 async def on_startup():
  # Importar modelos para init_db
-    from models.db import produto_model, cliente_model, pedido_model
+    from models.db import produto_model, cliente_model, pedido_model #importação pro init_db
     await init_db()
 # Incluir Controllers (Rotas)
 app.include_router(produto_controller.router, prefix="/v1")

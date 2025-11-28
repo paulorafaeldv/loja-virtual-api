@@ -2,7 +2,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 from service.produto_service import get_produto_with_frete
 from models.schema.pedido_schema import ItemCarrinho
-from typing import List, Dic
+from typing import List, Dict
+
+CARRINHO_DE_COMPRAS: Dict[int, List[ItemCarrinho]] = {}
 
 async def _verificar_estoque_e_total(db: AsyncSession, itens: List[ItemCarrinho]):
 
