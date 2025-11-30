@@ -14,6 +14,8 @@ class ProdutoEntidade(EntidadeLoja):
         self.nome = nome
         self.preco = preco
         self.estoque = estoque
+        self.tipo: str = "indefinido" # Adicionado: Garantir que o atributo exista
+        self.frete: float = 0.0
     @abstractmethod
     def calcular_frete(self) -> float:
         """Método polimórfico: custo do frete."""
@@ -26,11 +28,18 @@ class ProdutoFisicoLogica(ProdutoEntidade):
     def __init__(self, peso: float, **kwargs):
         super().__init__(**kwargs)
         self.peso = peso
+        self.tipo = "digital"
+        self.frete = self.calcular_frete()
 
     def calcular_frete(self) -> float:
         # Frete base + R$ 1.50 por kg
         return 10.00 + (self.peso * 1.50)
+    
 class ProdutoDigitalLogica(ProdutoEntidade):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.tipo = "digital"
+        self.frete = self.calcular_frete()
     def calcular_frete(self) -> float:
         # Frete zero
         return 0.00

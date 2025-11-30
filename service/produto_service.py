@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.orm import load_only, with_polymorphic
 from models.db.produto_model import ProdutoDB, ProdutoFisicoDB, ProdutoDigitalDB
 from models.schema import produto_schema
 from models.base import ProdutoFisicoLogica, ProdutoDigitalLogica
@@ -18,28 +19,27 @@ def _map_db_to_logica(produto_db: ProdutoDB):
     return None
 
 async def get_produto_with_frete(db: AsyncSession, produto_id: int):
- """Busca o produto e aplica o POO/Polimorfismo para calcular o frete."""
- stmt = select(ProdutoDB).where(ProdutoDB.id == produto_id)
- result = await db.execute(stmt)
- produto_db = result.scalars().first()
- if not produto_db: return None
- produto_logica = _map_db_to_logica(produto_db)
+    """Busca o produto e aplica o POO/Polimorfismo para calcular o frete."""
+    stmt = select(ProdutoDB).where(ProdutoDB.id == produto_id)
+    result = await db.execute(stmt)
+    produto_db = result.scalars().first()
 
- if produto_logica:
+    if not produto_db: 
+        return None
 
-    setattr(produto_db, 'frete', produto_logica.calcular_frete())
+    produto_logica = _map_db_to_logica(produto_db)
+    return produto_logica
 
-    return produto_db
 async def create_produto(db: AsyncSession, produto: produto_schema.ProdutoBase, tipo: str):
 
     dados_produto = produto.model_dump()
     if 'frete' in dados_produto:
         del dados_produto['frete']
-        
+
     if tipo == "fisico":
-        db_model = ProdutoFisicoDB(**produto.model_dump())
+        db_model = ProdutoFisicoDB(**dados_produto)
     elif tipo == "digital":
-        db_model = ProdutoDigitalDB(**produto.model_dump())
+        db_model = ProdutoDigitalDB(**dados_produto)
     else:
         raise ValueError("Tipo de produto inválido. ")
     
