@@ -10,11 +10,6 @@ class ProdutoFisicoCreate(ProdutoBase):
 class ProdutoDigitalCreate(ProdutoBase):
     pass   
 
-class ProdutoDigitalCreate(ProdutoBase):
-    id: int
-    tipo: str
-    frete: float = Field(..., description = "custo do frete calculado por Polimorfismo. ")
-
 class ProdutoSchema(ProdutoBase):
  id: int
  tipo: str

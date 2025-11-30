@@ -32,6 +32,10 @@ async def get_produto_with_frete(db: AsyncSession, produto_id: int):
     return produto_db
 async def create_produto(db: AsyncSession, produto: produto_schema.ProdutoBase, tipo: str):
 
+    dados_produto = produto.model_dump()
+    if 'frete' in dados_produto:
+        del dados_produto['frete']
+        
     if tipo == "fisico":
         db_model = ProdutoFisicoDB(**produto.model_dump())
     elif tipo == "digital":
