@@ -11,11 +11,12 @@ router = APIRouter(prefix="/carrinho", tags=["Carrinho e Pedidos"])
 
 async def adicionar_item(
     cliente_id: int, 
-    item: pedido_schema.ItemCarrinho
+    item: pedido_schema.ItemCarrinho,
+    db: AsyncSession = Depends(get_db)
  ):
- #Adiciona ou atualiza um item no carrinho (em memória) do cliente.
 
     return await carrinho_service.adicionar_item_ao_carrinho(cliente_id, item)
+    #Adiciona ou atualiza um item no carrinho (em memória) do cliente.
 
 @router.get("/{cliente_id}", response_model=list[pedido_schema.ItemCarrinho])
 

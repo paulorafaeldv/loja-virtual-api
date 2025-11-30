@@ -8,10 +8,13 @@ def _map_db_to_logica(produto_db: ProdutoDB):
     common_attrs = {'id': produto_db.id, 'nome': produto_db.nome,
     'preco': produto_db.preco, 'estoque': produto_db.estoque}
 
-    if produto_db.tipo == 'fisico' and hasattr(produto_db, 'peso'):
+    if hasattr(produto_db, 'peso') and produto_db.peso is not None:
         return ProdutoFisicoLogica(**common_attrs, peso=produto_db.peso)
-    elif produto_db.tipo == 'digital':
+    
+    elif not hasattr(produto_db, 'peso') or produto_db.peso is None:
+        # Assumindo que ProdutoDigitalDB não tem peso, se não for físico, é digital.
         return ProdutoDigitalLogica(**common_attrs)
+
     return None
 
 async def get_produto_with_frete(db: AsyncSession, produto_id: int):
