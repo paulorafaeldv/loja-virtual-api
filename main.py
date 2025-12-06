@@ -5,11 +5,11 @@ from controllers import produto_controller, cliente_controller, pedido_controlle
 from models.db import produto_model, cliente_model, pedido_model
 
 app = FastAPI(
- title="API Loja Virtual POO",
- description="Implementação de CRUD com Herança, Polimorfismo, Decisão e Repetição.",
+ title="API Loja Virtual",
+ description="Implementação de CRUD com Herança, Polimorfismo, Decisão e Repetição desenvolvido para a cadeira de POO",
 )
 @app.on_event("startup")
-async def on_startup():
+async def on_startup(): # aqui está chamando o banco de dados
  # Importar modelos para init_db
     await init_db()
 # Incluir Controllers (Rotas)
