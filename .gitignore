@@ -1,0 +1,13 @@
+# Ambientes Virtuais
+venv/
+.venv/
+
+# Arquivos de cache e compilação
+__pycache__/
+*.pyc
+
+# Arquivos específicos do sistema (macOS)
+.DS_Store
+
+# Arquivos de logs ou logs de testes
+*.log
