@@ -7,7 +7,7 @@ from typing import List, Dict
 CARRINHO_DE_COMPRAS: Dict[int, List[ItemCarrinho]] = {}
 
 async def verificar_estoque_ao_adicionar(db: AsyncSession, item: ItemCarrinho):
-   
+
     produto_db = await get_produto_with_frete(db, item.produto_id)
 
     # Decisão 1: Produto existe?
@@ -32,7 +32,7 @@ async def _verificar_estoque_e_total(db: AsyncSession, itens: List[ItemCarrinho]
         produto_db = await get_produto_with_frete(db, item.produto_id)
         
     if not produto_db:
-        raise HTTPException(status_code=404, detail=f"Produto ID {item.produto_id}") #DECISÃO: Impedir a compra
+        raise HTTPException(status_code=404, detail=f"Produto ID {item.produto_id} não encontrado.")
     
     if produto_db.estoque < item.quantidade:
         raise HTTPException(
@@ -55,7 +55,7 @@ async def _verificar_estoque_e_total(db: AsyncSession, itens: List[ItemCarrinho]
     return carrinho_detalhado, subtotal, frete_total
 
 async def adicionar_item_ao_carrinho(cliente_id: int, item: ItemCarrinho):
- #Adiciona/Atualiza um item na estrutura de dados do carrinho em memória.
+#Adiciona/Atualiza um item na estrutura de dados do carrinho em memória.
 
     if cliente_id not in CARRINHO_DE_COMPRAS:
         CARRINHO_DE_COMPRAS[cliente_id] = []
