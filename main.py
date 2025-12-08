@@ -8,6 +8,7 @@ app = FastAPI(
  title="API Loja Virtual",
  description="Implementação de CRUD com Herança, Polimorfismo, Decisão e Repetição desenvolvido para a cadeira de POO",
 )
+
 @app.on_event("startup")
 async def on_startup(): # aqui está chamando o banco de dados
  # Importar modelos para init_db

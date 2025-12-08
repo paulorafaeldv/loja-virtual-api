@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-# ABSTRAÇÃO
-class EntidadeLoja(ABC):
+# ABSTRAÇÃO para definir classes que não podem ser instanciadas diretamente e que forçam classes filhas a implementarem métodos específicos
+class EntidadeLoja(ABC): # Define a primeira classe abstrata. Ao herdar de ABC, esta classe não pode ser instanciada. Ela representa o contrato básico para qualquer "entidade" principal (como Produto, Cliente, Pedido, etc.) na sua loja.
     """Classe Abstrata base para todas as entidades principais."""
     @abstractmethod
     def obter_resumo(self) -> str:

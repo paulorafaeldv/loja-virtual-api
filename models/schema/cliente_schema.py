@@ -15,4 +15,4 @@ class ClienteSchema(ClienteBase):
     data_cadastro: datetime
 
 class Config:
-    from_attributes = True
+    from_attributes = True # instrui o Pydantic a tentar ler os dados não apenas como um dicionário (acesso via ['chave']), mas também como atributos de um objeto (acesso via .atributo).
